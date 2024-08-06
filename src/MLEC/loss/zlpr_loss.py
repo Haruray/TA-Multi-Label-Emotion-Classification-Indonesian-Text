@@ -1,4 +1,3 @@
-# base class for multi-label emotion classification
 import torch
 
 

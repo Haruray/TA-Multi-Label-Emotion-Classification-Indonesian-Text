@@ -1,8 +1,4 @@
-# base class for multi-label emotion classification
-import torch.nn.functional as F
-import torch.nn as nn
 import torch
-import numpy as np
 
 
 def lca_loss(y_hat, y_true, reduction="mean"):

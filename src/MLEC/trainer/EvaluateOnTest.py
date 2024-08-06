@@ -15,10 +15,23 @@ import torch.cuda
 
 class EvaluateOnTest(object):
     """
-    Class to encapsulate evaluation on the test set. Based off the "Tonks Library"
-    :param model: PyTorch model to use with the Learner
-    :param test_data_loader: dataloader for all of the validation data
-    :param model_path: path of the trained model
+    Class for evaluating a model on a test dataset.
+    Args:
+        model: The model to be evaluated.
+        test_data_loader: The data loader for the test dataset.
+        model_path: The path to the saved model.
+        col_names (list): The column names.
+        run_name (str): The name of the run.
+    Attributes:
+        model: The model to be evaluated.
+        test_data_loader: The data loader for the test dataset.
+        model_path: The path to the saved model.
+        col_names (list): The column names.
+        run_name (str): The name of the run.
+    Methods:
+        predict: Predicts the output of the model on the test dataset.
+    Returns:
+        dict: A dictionary containing evaluation metrics.
     """
 
     def __init__(
@@ -34,12 +47,6 @@ class EvaluateOnTest(object):
             self.run_name = self.model.name
 
     def predict(self, device="cuda:0", pbar=None):
-        """
-        Evaluate the model on a validation set
-        :param device: str (defaults to 'cuda:0')
-        :param pbar: fast_progress progress bar (defaults to None)
-        :returns: None
-        """
         self.model.to(device).load_state_dict(torch.load(self.model_path))
         self.model.eval()
         current_size = len(self.test_data_loader.dataset)

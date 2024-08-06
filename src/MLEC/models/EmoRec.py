@@ -4,6 +4,27 @@ from transformers import AutoModel
 
 
 class EmoRec(MLECModel):
+    """
+    Class for emotion recognition model.
+    Args:
+        output_dropout (float): Dropout rate for the output layer. Defaults to 0.1.
+        lang (str): Language of the model. Defaults to "English".
+        alpha (float): Alpha parameter. Defaults to 0.2.
+        beta (float): Beta parameter. Defaults to 0.1.
+        embedding_vocab_size (int): Size of the embedding vocabulary. Defaults to 30522.
+        label_size (int): Size of the label. Defaults to 8.
+        device (str): Device to use for training. Defaults to "cuda:0".
+        encoder_name (str): Name of the encoder model. Defaults to "indolem/indobert-base-uncased".
+        name (str): Name of the model. Defaults to "emorec".
+    Methods:
+        forward(input_ids, input_attention_masks, targets=None, **kwargs):
+            Forward pass of the model.
+            Args:
+                input_ids (Tensor): Input IDs.
+                input_attention_masks (Tensor): Input attention masks.
+                targets (Tensor, optional): Targets. Defaults to None.
+                **kwargs: Additional keyword arguments.
+    """
 
     def __init__(
         self,
@@ -17,12 +38,6 @@ class EmoRec(MLECModel):
         encoder_name="indolem/indobert-base-uncased",
         name="emorec",
     ):
-        """casting multi-label emotion classification as span-extraction
-        :param output_dropout: The dropout probability for output layer
-        :param lang: encoder language
-        :param joint_loss: which loss to use cel|corr|cel+corr
-        :param alpha: control contribution of each loss function in case of joint training
-        """
         super(EmoRec, self).__init__(alpha=alpha, beta=beta, device=device, name=name)
         self.encoder = AutoModel.from_pretrained(encoder_name)
         self.encoder.resize_token_embeddings(embedding_vocab_size)
@@ -33,11 +48,6 @@ class EmoRec(MLECModel):
         ).to(device)
 
     def forward(self, input_ids, input_attention_masks, targets=None, **kwargs):
-        """
-        :param batch: tuple of (input_ids, labels, length, label_indices)
-        :param device: device to run calculations on
-        :return: loss, num_rows, y_pred, targets
-        """
         lengths = kwargs.get("lengths", None)
         label_idxs = kwargs.get("label_idxs", None)
         input_attention_masks = input_attention_masks.to(self.device)

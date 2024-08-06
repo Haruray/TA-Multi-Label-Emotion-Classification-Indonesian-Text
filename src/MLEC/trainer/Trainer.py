@@ -20,11 +20,21 @@ import wandb
 
 class Trainer(object):
     """
-    Class to encapsulate training and validation steps for a pipeline. Based off the "Tonks Library"
-    :param model: PyTorch model to use with the Learner
-    :param train_data_loader: dataloader for all of the training data
-    :param val_data_loader: dataloader for all of the validation data
-    :param filename: the best model will be saved using this given name (str)
+    Class for training a model.
+    Args:
+        model: The model to be trained.
+        train_data_loader: The data loader for the training data.
+        val_data_loader: The data loader for the validation data.
+        filename: The filename to save the trained model.
+        early_stopping (EarlyStopping): The early stopping criteria.
+        col_names (list, optional): The column names. Defaults to [].
+    Methods:
+        fit(classifier_learning_rate, encoder_learning_rate, train_batch_size, max_epoch, project_name, run_name, device="cuda:0"):
+            Trains the model.
+        optimizer(encoder_learning_rate, classifier_learning_rate, train_batch_size, max_epoch):
+            Returns the optimizer for training.
+        predict(device="cuda:0", pbar=None):
+            Evaluates the model on a validation set.
     """
 
     def __init__(
@@ -53,12 +63,6 @@ class Trainer(object):
         run_name,
         device="cuda:0",
     ):
-        """
-        Fit the PyTorch model
-        :param num_epochs: number of epochs to train (int)
-        :param args:
-        :param device: str (defaults to 'cuda:0')
-        """
         # init wandb
         wandb_config = {
             "encoder_learning_rate": encoder_learning_rate,

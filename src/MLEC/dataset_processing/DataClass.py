@@ -7,6 +7,23 @@ from MLEC.dataset_processing.twitter_preprocessor import twitter_preprocessor
 
 
 class DataClass(Dataset):
+    """Class for processing dataset and preparing data for training.
+    Args:
+        filename (str): The path to the dataset file.
+        max_length (int): The maximum length of the input sequences.
+        tokenizer_name (str): The name of the tokenizer to be used.
+        language (str, optional): The language of the dataset. Defaults to "Indonesia".
+        use_prefix (bool, optional): Whether to use label names as prefix. Defaults to True.
+    Methods:
+        load_dataset():
+            Loads and preprocesses the dataset.
+        process_data():
+            Processes the dataset and tokenizes the input sequences.
+        __getitem__(index):
+            Returns the data item at the specified index.
+        __len__():
+            Returns the length of the dataset."""
+
     def __init__(
         self,
         filename,

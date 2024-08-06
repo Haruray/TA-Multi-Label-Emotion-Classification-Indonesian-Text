@@ -4,6 +4,22 @@ from MLEC.models.MLECModel import MLECModel
 
 
 class SpanEmo(MLECModel):
+    """Class for training a SpanEmo model.
+    Args:
+        output_dropout (float): Dropout rate for the output layer. Defaults to 0.1.
+        lang (str): Language of the model. Defaults to "English".
+        alpha (float): Alpha parameter for the model. Defaults to 0.2.
+        beta (float): Beta parameter for the model. Defaults to 0.1.
+        embedding_vocab_size (int): Size of the embedding vocabulary. Defaults to 30522.
+        device (str): Device to run calculations on. Defaults to "cuda:0".
+        encoder_name (str): Name of the encoder model. Defaults to "indolem/indobert-base-uncased".
+        name (str): Name of the model. Defaults to "spanemo".
+    Methods:
+        forward(input_ids, input_attention_masks, targets=None, **kwargs):
+            Forward pass of the model.
+        compute_pred(logits):
+            Computes the predictions based on the logits."""
+
     def __init__(
         self,
         output_dropout=0.1,

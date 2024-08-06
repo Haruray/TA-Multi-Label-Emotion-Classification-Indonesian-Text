@@ -1,15 +1,23 @@
-from fastprogress.fastprogress import format_time, master_bar, progress_bar
-from transformers import AdamW, get_linear_schedule_with_warmup
-from sklearn.metrics import f1_score, jaccard_score
-import torch.nn.functional as F
 import numpy as np
 import torch
-import time
 
 
 class EarlyStopping:
-    """Early stops the training if validation loss doesn't improve after a given patience.
-    Taken from https://github.com/Bjarten/early-stopping-pytorch"""
+    """
+    Class for early stopping during model training.
+    Args:
+        filename (str): The filename to save the trained model.
+        patience (int, optional): The number of epochs to wait for improvement before stopping. Defaults to 7.
+        verbose (bool, optional): Whether to print the early stopping counter. Defaults to True.
+        delta (float, optional): The minimum change in the monitored criteria score to be considered as improvement. Defaults to 0.
+        criteria (str, optional): The criteria to monitor for improvement. Defaults to "val_loss".
+        bigger_better (bool, optional): Whether a higher criteria score indicates better performance. Defaults to False.
+    Methods:
+        __call__(criteria_score, model):
+            Checks if the criteria score has improved and updates the early stopping counter.
+        save_checkpoint(model, delta_tolerated=False, prev_best=np.inf):
+            Saves the model when the monitored criteria score decreases.
+    """
 
     def __init__(
         self,
@@ -20,15 +28,6 @@ class EarlyStopping:
         criteria="val_loss",
         bigger_better=False,
     ):
-        """
-        Args:
-            patience (int): How long to wait after last time validation loss improved.
-                            Default: 7
-            verbose (bool): If True, prints a message for each validation loss improvement.
-                            Default: False
-            delta (float): Minimum change in the monitored quantity to qualify as an improvement.
-                            Default: 0
-        """
         self.patience = patience
         self.verbose = verbose
         self.counter = 0
