@@ -1,6 +1,10 @@
 # TA Multi-label Emotion Classification on Indonesian Text
 Author : Safiq Faray
 
+Code is modification or taken from these repos :
+- https://github.com/hasanhuz/SpanEmo
+- https://github.com/Tau-J/MultilabelCrossEntropyLoss-Pytorch
+
 Seperate repo for dataset : https://github.com/Haruray/indonesian-multilabel-emotion-dataset 
 
 ## Architecture
