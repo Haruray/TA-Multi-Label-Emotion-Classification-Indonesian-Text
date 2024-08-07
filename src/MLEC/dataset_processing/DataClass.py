@@ -59,9 +59,9 @@ class DataClass(Dataset):
         else:
             # if the file is a csv file, then use sep=","
             df = pd.read_csv(self.filename, sep=",")
-        x_train, y_train = df.Text.values, df.iloc[:, 3:].values
+        x_train, y_train = df.Text.values, df.iloc[:, 2:].values
         # get label names
-        label_names = df.columns[3:].tolist()
+        label_names = df.columns[2:].tolist()
         return x_train, y_train, label_names
 
     def process_data(self):

@@ -8,7 +8,6 @@ class EmoRec(MLECModel):
     Class for emotion recognition model.
     Args:
         output_dropout (float): Dropout rate for the output layer. Defaults to 0.1.
-        lang (str): Language of the model. Defaults to "English".
         alpha (float): Alpha parameter. Defaults to 0.2.
         beta (float): Beta parameter. Defaults to 0.1.
         embedding_vocab_size (int): Size of the embedding vocabulary. Defaults to 30522.
@@ -29,7 +28,6 @@ class EmoRec(MLECModel):
     def __init__(
         self,
         output_dropout=0.1,
-        lang="English",
         alpha=0.2,
         beta=0.1,
         embedding_vocab_size=30522,
