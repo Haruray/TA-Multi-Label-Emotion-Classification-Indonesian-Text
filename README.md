@@ -9,6 +9,12 @@ Code is modification or taken from these repos :
 
 Seperate repo for dataset : https://github.com/Haruray/indonesian-multilabel-emotion-dataset
 
+## Directory
+- data : dataset
+- models : pytorch model dump
+- notebook : `demo.ipynb` for inference, `kagge training.ipynb` for training in kaggle platform
+- src : source code
+
 ## Architecture
 
 IndoBERT :
@@ -16,6 +22,7 @@ IndoBERT :
 
 SpanEmo :
 <img src="./static/spanemo.png"/>
+
 
 ## Results
 
